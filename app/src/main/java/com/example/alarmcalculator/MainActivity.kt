@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity() {
         tvStartHour.text = startTime.getHourString()
         tvStartMinute.text = startTime.getMinuteString()
         tvCycle.text = cycleData.toString()
-        tvInNext.text = "You are going to sleep in next ${startTime.inNextToString()})"
+        tvInNext.text = "You are going to sleep in next ${startTime.inNextToString()}"
         tvAlarmAt.text = "You should set alarm at $alarmAt"
     }
 

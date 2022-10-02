@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AlarmCalculator/app/src/main/res/drawable/ic_plus.xml" value="0.1" />
+        <entry key="..\:/AlarmCalculator/app/src/main/res/drawable/ic_subtract.xml" value="0.1" />
+        <entry key="..\:/AlarmCalculator/app/src/main/res/layout/activity_main.xml" value="0.3038949275362319" />
         <entry key="..\:/AndroidStudioProjects/AlarmCalculator/app/src/main/res/drawable/ic_plus.xml" value="0.213" />
         <entry key="..\:/AndroidStudioProjects/AlarmCalculator/app/src/main/res/drawable/ic_sub.xml" value="0.213" />
         <entry key="..\:/AndroidStudioProjects/AlarmCalculator/app/src/main/res/drawable/ic_subtract.xml" value="0.213" />
