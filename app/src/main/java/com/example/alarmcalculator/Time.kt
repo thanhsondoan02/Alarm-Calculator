@@ -36,8 +36,8 @@ fun Int.getTimeForm(): String {
 }
 
 class Time {
-    private var hour: Int
-    private var minute: Int
+    var hour: Int
+    var minute: Int
 
     init {
         hour = getCurrentHour()
@@ -111,14 +111,6 @@ class Time {
         hour = (hour + 23) % 24
     }
 
-//    private fun getTimeString(number: Int) : String {
-//        return if (number.toString().length == 1) {
-//            "0$number"
-//        } else {
-//            number.toString()
-//        }
-//    }
-
     fun inNext(): Int {
         val currentTime = Time()
         val currentTimeToMinute = currentTime.hour * 60 + currentTime.minute
@@ -131,7 +123,48 @@ class Time {
     }
 
     fun inNextToString(): String {
+//        val inNext = inNext()
+//        return "${(inNext/60).getTimeForm()}h${(inNext%60).getTimeForm()}m"
+
         val inNext = inNext()
-        return "${(inNext/60).getTimeForm()}h${(inNext%60).getTimeForm()}m"
+        val hour = inNext / 60
+        val minute = inNext % 60
+
+        val hourString = when (hour) {
+            0 -> {
+                ""
+            }
+            1 -> {
+                "$hour hour"
+
+            }
+            else -> {
+                "$hour hours"
+            }
+        }
+
+        val minuteString = when (minute) {
+            0 -> {
+                ""
+            }
+            1 -> {
+                "$minute minute"
+            }
+            else -> {
+                "$minute minutes"
+            }
+        }
+
+        return when {
+            hour == 0 -> {
+                minuteString
+            }
+            minute == 0 -> {
+                hourString
+            }
+            else -> {
+                "$hourString and $minuteString"
+            }
+        }
     }
 }

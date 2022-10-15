@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    app:cardCornerRadius="20dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="10dp">
+
+        <TextView
+            android:id="@+id/tvChooseSleepTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/time_example"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tvChooseSleepIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/sleep_in"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="15sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <NumberPicker
+                android:id="@+id/npChooseHourPicker"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:theme="@style/DefaultNumberPickerTheme"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <NumberPicker
+                android:id="@+id/npChooseMinutePicker"
+                android:layout_width="150dp"
+                android:theme="@style/DefaultNumberPickerTheme"
+                android:layout_height="150dp"
+                app:layout_constraintStart_toEndOf="@id/npChooseHourPicker"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="0.5dp"
+                android:layout_height="0dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintBottom_toBottomOf="@id/npChooseMinutePicker"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/npChooseMinutePicker" />
+
+            <Button
+                android:id="@+id/btnChooseCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@android:color/darker_gray"
+                android:text="@string/cancel"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="@id/npChooseHourPicker"
+                app:layout_constraintStart_toStartOf="@id/npChooseHourPicker"
+                app:layout_constraintTop_toBottomOf="@id/npChooseHourPicker" />
+
+            <Button
+                android:id="@+id/btnChooseDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#00BFA5"
+                android:text="@string/done"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="@id/npChooseMinutePicker"
+                app:layout_constraintStart_toStartOf="@id/npChooseMinutePicker"
+                app:layout_constraintTop_toBottomOf="@id/npChooseMinutePicker" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
