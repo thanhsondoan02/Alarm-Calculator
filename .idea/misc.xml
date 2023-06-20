@@ -9,7 +9,7 @@
         <entry key="..\:/AndroidStudioProjects/Alarm-Calculator/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/Alarm-Calculator/app/src/main/res/layout/choose_dialog.xml" value="0.5" />
         <entry key="..\:/AndroidStudioProjects/Alarm-Calculator/app/src/main/res/layout/choose_layout.xml" value="0.5" />
-        <entry key="..\:/AndroidStudioProjects/Alarm-Calculator/app/src/main/res/layout/main_activity.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/Alarm-Calculator/app/src/main/res/layout/main_activity.xml" value="0.5" />
         <entry key="..\:/AndroidStudioProjects/AlarmCalculator/app/src/main/res/drawable/ic_plus.xml" value="0.213" />
         <entry key="..\:/AndroidStudioProjects/AlarmCalculator/app/src/main/res/drawable/ic_sub.xml" value="0.213" />
         <entry key="..\:/AndroidStudioProjects/AlarmCalculator/app/src/main/res/drawable/ic_subtract.xml" value="0.213" />
@@ -17,7 +17,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

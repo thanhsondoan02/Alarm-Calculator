@@ -1,14 +1,22 @@
 package com.example.alarmcalculator
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.app.Dialog
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import java.util.*
+
 
 const val REP_DELAY = 100L
 
+@RequiresApi(Build.VERSION_CODES.S)
 class MainActivity : AppCompatActivity() {
 
     interface IListener {
@@ -22,17 +30,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvSleepTime: TextView
     private lateinit var tvAlarmTime: TextView
     private lateinit var rdGrpSleepCycle: RadioGroup
+    private lateinit var btnSetAlarm: Button
 
     private lateinit var listener: IListener
     private lateinit var startTime: Time
     private lateinit var cycleData: CycleData
     private lateinit var alarmAt: Time
-
-    private val repeatUpdateHandler: Handler = Handler()
-    private var mAutoIncrement = false
-    private val dialog by lazy {
-        getChooseDialog()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         tvAlarmTime = findViewById(R.id.tvMainAlarmTime)
         tvSleepTime = findViewById(R.id.tvMainSleepTime)
         rdGrpSleepCycle = findViewById(R.id.rdGrpMainSleepCycle)
+        btnSetAlarm = findViewById(R.id.btnMainSetAlarm)
     }
 
     private fun setOnClick() {
@@ -74,64 +78,11 @@ class MainActivity : AppCompatActivity() {
             startTime = Time()
             listener.onSleepTimeChange()
         }
+
+        btnSetAlarm.setOnClickListener {
+            setAlarm()
+        }
     }
-
-//    @SuppressLint("ClickableViewAccessibility")
-//    private fun ImageButton.setClick(updateType: UPDATE_TYPE) {
-//
-//        this.setOnClickListener {
-//            update(updateType)
-//        }
-//
-//        this.setOnLongClickListener {
-//            mAutoIncrement = true
-//            repeatUpdateHandler.post(RptUpdater(updateType))
-//            false
-//        }
-//
-//        this.setOnTouchListener { _, event ->
-//            if ((event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL)
-//                && mAutoIncrement
-//            ) {
-//                mAutoIncrement = false
-//            }
-//            false
-//        }
-//    }
-
-//    private fun Button.setClick(updateType: UPDATE_TYPE) {
-//        this.setOnClickListener {
-//            update(updateType)
-//        }
-//    }
-
-//    private fun update(updateType: UPDATE_TYPE) {
-//        when (updateType) {
-//            UPDATE_TYPE.SLEEP_NOW -> {
-//                startTime = Time()
-//            }
-//            UPDATE_TYPE.HOUR_PLUS -> {
-//                startTime.plusHourWithoutMinuteChange()
-//            }
-//            UPDATE_TYPE.HOUR_MINUS -> {
-//                startTime.minusHourWithoutMinuteChange()
-//            }
-//            UPDATE_TYPE.MINUTE_PLUS -> {
-//                startTime.plusMinuteWithoutHourChange()
-//            }
-//            UPDATE_TYPE.MINUTE_MINUS -> {
-//                startTime.minusMinuteWithoutHourChange()
-//            }
-//            UPDATE_TYPE.CYCLE_PLUS -> {
-//                cycleData.plusCycle()
-//            }
-//            UPDATE_TYPE.CYCLE_MINUS -> {
-//                cycleData.minusCycle()
-//            }
-//        }
-//        updateAlarmAt()
-//        updateTimeView()
-//    }
 
     private fun updateAlarmAt() {
         alarmAt = startTime.copy()
@@ -141,21 +92,9 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun updateTimeView() {
-//        tvInNext.text = "You are going to sleep in next ${startTime.inNextToString()}"
-//        tvAlarmAt.text = "You should set alarm at $alarmAt"
-
         tvSleepTime.text = startTime.toString()
         tvAlarmTime.text = alarmAt.toString()
     }
-
-//    inner class RptUpdater(private val updateType: UPDATE_TYPE) : Runnable {
-//        override fun run() {
-//            if (mAutoIncrement) {
-//                update(updateType)
-//                repeatUpdateHandler.postDelayed(RptUpdater(updateType), REP_DELAY)
-//            }
-//        }
-//    }
 
     private fun initListener() {
         listener = object : IListener {
@@ -242,7 +181,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setNumberPicker(picker: NumberPicker, min: Int, max: Int, value: Int) {
-        picker.displayedValues = Array(max-min+1) { i ->
+        picker.displayedValues = Array(max - min + 1) { i ->
             if (i < 10)
                 "0$i"
             else
@@ -257,4 +196,46 @@ class MainActivity : AppCompatActivity() {
         picker.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS;
     }
 
+    private fun setAlarm() {
+//        // Get AlarmManager instance
+//        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+//        // Intent part
+//        val intent = Intent(this, AlarmReceiver::class.java).apply {
+//            action = "ALARM_ACTION"
+//            putExtra("check_alarm", "Setting alarm successfully")
+//        }
+//        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_MUTABLE)
+//        // Alarm time
+//        val ALARM_DELAY_IN_SECOND = 1
+//        val alarmTimeAtUTC = System.currentTimeMillis() + ALARM_DELAY_IN_SECOND * 1_000L
+//        // Set with system Alarm Service
+//        // Other possible functions: setExact() / setRepeating() / setWindow(), etc
+//        alarmManager.setExactAndAllowWhileIdle(
+//            AlarmManager.RTC_WAKEUP,
+//            alarmTimeAtUTC,
+//            pendingIntent
+//        )
+//
+        createAlarm()
+    }
+
+    private lateinit var alarmManager: AlarmManager
+    private fun getAlarmIntent(): Intent {
+        val intent = Intent(this, AlarmReceiver::class.java)
+        intent.action = ALARM_RECEIVER_ACTION
+        return intent
+    }
+    fun createAlarm() {
+//        val sender = PendingIntent.getBroadcast(this, REQUEST_CODE, getAlarmIntent(), 0)
+        alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val pendingIntent = PendingIntent.getBroadcast(this, REQUEST_CODE, intent, PendingIntent.FLAG_MUTABLE)
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmAt.toMillis(), pendingIntent)
+    }
+    fun cancelAlarm(){
+        val sender = PendingIntent.getBroadcast(this, REQUEST_CODE, getAlarmIntent(), 0)
+        alarmManager.cancel(sender)
+    }
+
 }
+const val REQUEST_CODE = 5122
+const val ALARM_RECEIVER_ACTION = "ALARM_RECEIVER_ACTION"
